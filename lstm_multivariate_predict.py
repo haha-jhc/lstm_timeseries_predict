@@ -75,7 +75,12 @@ train_X = train_X.reshape((train_X.shape[0],1,train_X.shape[1]))
 test_X = test_X.reshape((test_X.shape[0],1,test_X.shape[1]))
 print(train_X.shape,train_Y.shape,test_X.shape,test_Y.shape)
 
-model = load_model('model_5_mul.h5')
+# model = load_model('model_5_mul.h5')
+# model = load_model('model_10_mul.h5')
+# model = load_model('model_20_mul.h5')
+model = load_model('model_5_mult.h5')
+# model = load_model('model_10_mult.h5')
+# model = load_model('model_20_mult.h5')
 yhat=model.predict(test_X)
 test_X =test_X.reshape((test_X.shape[0],test_X.shape[2]))
 #invert scaling for forecast
