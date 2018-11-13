@@ -16,10 +16,10 @@ from sklearn.metrics import mean_squared_error
 #load_dataset
 #时间序列做为标签
 #dataframe = read_csv(r'E:\data_wdz_mul\data_5min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
-#dataframe = read_csv(r'E:\data_wdz_mul\data_10min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
+dataframe = read_csv(r'E:\data_wdz_mul\data_10min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
 #dataframe = read_csv(r'E:\data_wdz_mul\data_20min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
 #时间不做标签
-dataframe = read_csv(r'E:\data_wdz_mul\data_5min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
+# dataframe = read_csv(r'E:\data_wdz_mul\data_5min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
 # dataframe = read_csv(r'E:\data_wdz_mul\data_10min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
 # dataframe = read_csv(r'E:\data_wdz_mul\data_20min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
 values = dataframe.values
@@ -61,8 +61,8 @@ print(reframed.head())
 
 #split into input and outputs
 values = reframed.values
-train_size = 24*12*6 #5分钟
-#train_size = 24*6*6  #10分钟
+# train_size = 24*12*6 #5分钟
+train_size = 24*6*6  #10分钟
 #train_size = 24*3*6  #20分钟
 train = values[:train_size,:]
 test = values[train_size:,:]
@@ -81,9 +81,9 @@ model.add(Dense(1))
 model.compile(loss='mae',optimizer='adam')
 history = model.fit(train_X,train_Y,epochs=100,batch_size=72,validation_data=(test_X,test_Y),verbose=2,shuffle=False)
 # model.save('model_5_mul.h5')
-# model.save('model_10_mul.h5')
+model.save('model_10_mul.h5')
 # model.save('model_20_mul.h5')
-model.save('model_5_mult.h5')
+# model.save('model_5_mult.h5')
 # model.save('model_10_mult.h5')
 # model.save('model_20_mult.h5')
 

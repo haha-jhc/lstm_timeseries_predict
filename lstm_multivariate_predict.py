@@ -16,11 +16,11 @@ from sklearn.metrics import mean_squared_error
 
 ##load_dataset
 #时间序列做为标签
-#dataframe = read_csv(r'E:\data_wdz_mul\data_5min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
-#dataframe = read_csv(r'E:\data_wdz_mul\data_10min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
+dataframe = read_csv(r'E:\data_wdz_mul\data_5min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
+# dataframe = read_csv(r'E:\data_wdz_mul\data_10min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
 #dataframe = read_csv(r'E:\data_wdz_mul\data_20min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
 #时间不做标签
-dataframe = read_csv(r'E:\data_wdz_mul\data_5min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
+# dataframe = read_csv(r'E:\data_wdz_mul\data_5min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
 # dataframe = read_csv(r'E:\data_wdz_mul\data_10min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
 # dataframe = read_csv(r'E:\data_wdz_mul\data_20min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
 values = dataframe.values
@@ -63,7 +63,7 @@ print(reframed.head())
 #split into input and outputs
 values = reframed.values
 train_size = 24*12*6 #5分钟
-#train_size = 24*6*6  #10分钟
+# train_size = 24*6*6  #10分钟
 #train_size = 24*3*6  #20分钟
 train = values[:train_size,:]
 test = values[train_size:,:]
@@ -75,10 +75,10 @@ train_X = train_X.reshape((train_X.shape[0],1,train_X.shape[1]))
 test_X = test_X.reshape((test_X.shape[0],1,test_X.shape[1]))
 print(train_X.shape,train_Y.shape,test_X.shape,test_Y.shape)
 
-# model = load_model('model_5_mul.h5')
+model = load_model('model_5_mul.h5')
 # model = load_model('model_10_mul.h5')
 # model = load_model('model_20_mul.h5')
-model = load_model('model_5_mult.h5')
+# model = load_model('model_5_mult.h5')
 # model = load_model('model_10_mult.h5')
 # model = load_model('model_20_mult.h5')
 yhat=model.predict(test_X)
@@ -94,6 +94,9 @@ inv_y =scaler.inverse_transform(inv_y)
 inv_y = inv_y[:,0]
 rmse = math.sqrt(mean_squared_error(inv_y,inv_yhat))
 print('Test RMSE:%.3f' % rmse)
+
+plt.rcParams['figure.figsize'] = (20,6)
+plt.rcParams['font.sans-serif']=['SimHei']
 
 label=["dataset","testPredict"]
 l1,=plt.plot(inv_y,color='green')
