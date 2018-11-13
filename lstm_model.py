@@ -45,10 +45,10 @@ print(trainX.shape, trainY.shape, testX.shape, testY.shape)
 
 #建立LSTM模型
 model = Sequential()
-model.add(LSTM(4,input_shape=(1,lock_back)))
+model.add(LSTM(50,input_shape=(1,lock_back)))
 model.add(Dense(1))
 model.compile(loss='mean_squared_error',optimizer='adam')
-model.fit(trainX,trainY,epochs=100,batch_size=20,verbose=2)
+model.fit(trainX,trainY,epochs=100,batch_size=72,verbose=2)
 
 # 保存模型
 # model.save('model_5.h5')    # 间隔为5分钟

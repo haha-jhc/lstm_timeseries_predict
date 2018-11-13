@@ -14,17 +14,23 @@ from keras.models import load_model
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.metrics import mean_squared_error
 
-#load_dataset
+##load_dataset
 #时间序列做为标签
-dataframe = read_csv(r'E:\data_wdz_mul\data_5min_pre.csv',usecols=[0,2,3],engine='python',parse_dates=['GathDt'],index_col=0,skipfooter=3)
-dataset = dataframe.values
+#dataframe = read_csv(r'E:\data_wdz_mul\data_5min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
+#dataframe = read_csv(r'E:\data_wdz_mul\data_10min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
+#dataframe = read_csv(r'E:\data_wdz_mul\data_20min_pre.csv',usecols=[0,2,3],engine='python',index_col=0,skipfooter=3)
+#时间不做标签
+dataframe = read_csv(r'E:\data_wdz_mul\data_5min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
+# dataframe = read_csv(r'E:\data_wdz_mul\data_10min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
+# dataframe = read_csv(r'E:\data_wdz_mul\data_20min_pre.csv',usecols=[0,3],engine='python',skipfooter=3)
+values = dataframe.values
 #dataset = dataset.astype('float32')
-# print(dataframe.head())
 #时间序列做为维度
 #dataframe = read_csv(r'E:\data_wdz_mul\data_20min_pre.csv',usecols=[0,3],engine='python')
+
 #normalize features
 scaler = MinMaxScaler(feature_range=(0,1))
-scaled = scaler.fit_transform(dataset)
+scaled = scaler.fit_transform(values)
 
 #convert series to supervised learning
 def series_to_supervised(data,n_in=1,n_out=1,dropnan=True):
@@ -56,7 +62,9 @@ print(reframed.head())
 
 #split into input and outputs
 values = reframed.values
-train_size = 24*12*6
+train_size = 24*12*6 #5分钟
+#train_size = 24*6*6  #10分钟
+#train_size = 24*3*6  #20分钟
 train = values[:train_size,:]
 test = values[train_size:,:]
 #split into input and outputs
